@@ -1,6 +1,7 @@
 <?php
-
-use App\Http\Controllers\ProfileController;
+use App\http\Controllers\Backend\AdminController;
+use App\http\Controllers\Backend\VendorController;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,3 +19,11 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+//ROTA PAINEL ADMINISTRATIVO
+Route::get('admin/dashboard', [AdminController::class, 'dashboard'])->middleware('auth','admin')
+->name('admin.dashboard');
+
+//ROTA PAINEL VENDEDOR
+Route::get('vendor/dashboard', [VendorController::class, 'dashboard'])->middleware(['auth', 'vendor'])
+->name('vendor.dashboard');
